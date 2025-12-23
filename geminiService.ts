@@ -1,11 +1,11 @@
 
 import { GoogleGenAI } from "@google/genai";
 
-// Initialize the GoogleGenAI client using the API key from the environment variable as per guidelines.
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY as string });
-
 export async function getEthanolResponse(userMessage: string) {
   try {
+    // Initialize inside the call to handle dynamic API key injection and avoid top-level crashes
+    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY as string });
+
     // Calling generateContent directly with model name and prompt.
     const response = await ai.models.generateContent({
       model: "gemini-3-flash-preview",
